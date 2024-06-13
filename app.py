@@ -1,6 +1,5 @@
 from flask import Flask, render_template, jsonify
-from fetch_data import fetch_crypto_data
-from predict import predict_prices
+from fetch_data import fetch_crypto_data, fetch_historical_data
 
 app = Flask(__name__)
 
@@ -11,10 +10,12 @@ def index():
 @app.route('/crypto', methods=['GET'])
 def get_crypto_data():
     data = fetch_crypto_data()
-    predicted_data = predict_prices(data)
-    # Log the data to verify its structure
-    print("Data Returned to Frontend:", predicted_data[['name', 'symbol', 'current_price', 'market_cap', 'predicted_price']].to_dict(orient='records'))
-    return jsonify(predicted_data.to_dict(orient='records'))
+    return jsonify(data.to_dict(orient='records'))
+
+@app.route('/crypto/<coin_id>/history', methods=['GET'])
+def get_historical_data(coin_id):
+    data = fetch_historical_data(coin_id)
+    return jsonify(data)
 
 if __name__ == '__main__':
     app.run(debug=True)
