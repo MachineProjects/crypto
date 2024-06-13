@@ -12,7 +12,8 @@ def index():
 def get_crypto_data():
     data = fetch_crypto_data()
     predicted_data = predict_prices(data)
-    print(predicted_data.to_dict(orient='records'))  # Log the data
+    # Log the data to verify its structure
+    print("Data Returned to Frontend:", predicted_data[['name', 'symbol', 'current_price', 'market_cap', 'predicted_price']].to_dict(orient='records'))
     return jsonify(predicted_data.to_dict(orient='records'))
 
 if __name__ == '__main__':

@@ -11,12 +11,24 @@ def fetch_coingecko_data():
         "sparkline": "false"
     }
     response = requests.get(url, params=params)
-    return pd.DataFrame(response.json())
+    data = response.json()
+    # Ensure 'name' and 'symbol' fields are correctly mapped
+    for coin in data:
+        coin['name'] = coin.get('name', "N/A")
+        coin['symbol'] = coin.get('symbol', "N/A")
+    return pd.DataFrame(data)
 
 def fetch_coinlore_data():
     url = "https://api.coinlore.net/api/tickers/"
     response = requests.get(url)
-    return pd.DataFrame(response.json()['data'])
+    data = response.json()['data']
+    # Ensure 'name' and 'symbol' fields are correctly mapped
+    for coin in data:
+        coin['name'] = coin.get('name', "N/A")
+        coin['symbol'] = coin.get('symbol', "N/A")
+        coin['current_price'] = float(coin.get('price_usd', 0.0))
+        coin['market_cap'] = float(coin.get('market_cap_usd', 0.0))
+    return pd.DataFrame(data)
 
 def fetch_crypto_data():
     data_coingecko = fetch_coingecko_data()
@@ -25,5 +37,5 @@ def fetch_crypto_data():
 
 if __name__ == "__main__":
     crypto_data = fetch_crypto_data()
-    print(crypto_data)
+    print(crypto_data[['name', 'symbol', 'current_price', 'market_cap']])
 

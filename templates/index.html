@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+k<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -27,11 +27,11 @@
                 const tableBody = document.getElementById('crypto-table').getElementsByTagName('tbody')[0];
                 data.forEach(coin => {
                     const row = tableBody.insertRow();
-                    row.insertCell(0).innerText = coin.name || coin.id || "N/A";  // Adjust key for name
-                    row.insertCell(1).innerText = coin.symbol || "N/A";  // Adjust key for symbol
-                    row.insertCell(2).innerText = coin.current_price || coin.price_usd || "N/A";  // Adjust key for current price
-                    row.insertCell(3).innerText = coin.market_cap || coin.market_cap_usd || "N/A";  // Adjust key for market cap
-                    row.insertCell(4).innerText = coin.predicted_price || "N/A";  // Predicted price
+                    row.insertCell(0).innerText = coin.name || "N/A";
+                    row.insertCell(1).innerText = coin.symbol || "N/A";
+                    row.insertCell(2).innerText = coin.current_price || "N/A";
+                    row.insertCell(3).innerText = coin.market_cap || "N/A";
+                    row.insertCell(4).innerText = coin.predicted_price || "N/A";
                 });
             });
     </script>

@@ -2,7 +2,7 @@ from sklearn.linear_model import LinearRegression
 import pandas as pd
 
 def predict_prices(data):
-    data = data[['current_price', 'market_cap', 'total_volume']].dropna()
+    data = data[['name', 'symbol', 'current_price', 'market_cap', 'total_volume']].dropna()
     model = LinearRegression()
     X = data[['market_cap', 'total_volume']]
     y = data['current_price']
